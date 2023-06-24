@@ -1,0 +1,23 @@
+{
+  "name": "proshop-v2",
+  "version": "2.0.0",
+  "description": "ProShop E-Commerce Application built with MERN Stack",
+  "main": "server.js",
+  "author": "Indranil Halder <indranilhalder.dev@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node -r esm server/server",
+    "server": "nodemon -r esm server/server",
+    "client": "yarn --cwd client dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "esm": "^3.2.25",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^2.0.22"
+  }
+}
