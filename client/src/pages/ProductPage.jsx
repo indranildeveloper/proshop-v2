@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -8,13 +10,22 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
-import Rating from "../components/Rating";
 import { FaArrowLeft } from "react-icons/fa";
-import { products } from "../products";
+import Rating from "../components/Rating";
 
 const ProductPage = () => {
-  const { id: ProductId } = useParams();
-  const product = products.find((p) => p._id === ProductId);
+  const [product, setProduct] = useState({});
+
+  const { id: productId } = useParams();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${productId}`);
+      setProduct(data);
+    };
+
+    fetchProduct();
+  }, [productId]);
 
   return (
     <>

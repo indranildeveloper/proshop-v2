@@ -1,10 +1,15 @@
 import express from "express";
+import colors from "colors";
 import { config } from "dotenv";
+import connectDB from "./config/db";
 import { products } from "./data/products";
 
 config();
 
 const port = process.env.PORT || 8000;
+
+// MongoDB Connection
+connectDB();
 
 const app = express();
 
