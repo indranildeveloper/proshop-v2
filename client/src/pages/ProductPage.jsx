@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -12,20 +10,25 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import { FaArrowLeft } from "react-icons/fa";
 import Rating from "../components/Rating";
+import { useGetProductDetailsQuery } from "../slices/productApiSlice";
 
 const ProductPage = () => {
-  const [product, setProduct] = useState({});
-
   const { id: productId } = useParams();
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${productId}`);
-      setProduct(data);
-    };
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useGetProductDetailsQuery(productId);
 
-    fetchProduct();
-  }, [productId]);
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (isError) {
+    return <div>{error?.data?.message || error.error}</div>;
+  }
 
   return (
     <>
