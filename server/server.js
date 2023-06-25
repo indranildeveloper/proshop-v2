@@ -2,7 +2,7 @@ import express from "express";
 import colors from "colors";
 import { config } from "dotenv";
 import connectDB from "./config/db";
-import { products } from "./data/products";
+import products from "./data/products";
 
 config();
 
