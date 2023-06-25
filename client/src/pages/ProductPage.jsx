@@ -10,6 +10,8 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import { FaArrowLeft } from "react-icons/fa";
 import Rating from "../components/Rating";
+import Loading from "../components/Loading";
+import Message from "../components/Message";
 import { useGetProductDetailsQuery } from "../slices/productApiSlice";
 
 const ProductPage = () => {
@@ -23,11 +25,13 @@ const ProductPage = () => {
   } = useGetProductDetailsQuery(productId);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <div>{error?.data?.message || error.error}</div>;
+    return (
+      <Message variant="danger">{error?.data?.message || error.error}</Message>
+    );
   }
 
   return (
