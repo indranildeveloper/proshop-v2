@@ -1,4 +1,5 @@
 import express from "express";
+/* eslint-disable-next-line no-unused-vars */
 import colors from "colors";
 import { config } from "dotenv";
 import connectDB from "./config/db";
