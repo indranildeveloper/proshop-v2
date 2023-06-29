@@ -2,7 +2,7 @@ import express from "express";
 /* eslint-disable-next-line no-unused-vars */
 import colors from "colors";
 import { config } from "dotenv";
-import connectDB from "./config/db";
+import connectDB from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import productRoutes from "./routes/productRoutes.js";
 
