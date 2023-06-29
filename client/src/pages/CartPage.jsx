@@ -26,6 +26,10 @@ const CartPage = () => {
     dispatch(removeFromCart(productId));
   };
 
+  const handleCheckout = () => {
+    navigate("/login?redirect=/shipping");
+  };
+
   return (
     <Row>
       <Col md={8}>
@@ -98,6 +102,7 @@ const CartPage = () => {
                 className="btn-block w-100"
                 variant="primary"
                 disabled={cartItems.length === 0}
+                onClick={handleCheckout}
               >
                 Proceed to checkout
               </Button>
