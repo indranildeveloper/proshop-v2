@@ -3,8 +3,8 @@ import express from "express";
 import colors from "colors";
 import { config } from "dotenv";
 import connectDB from "./config/db";
-import { notFound, errorHandler } from "./middleware/errorMiddleware";
-import productRoutes from "./routes/productRoutes";
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import productRoutes from "./routes/productRoutes.js";
 
 config();
 
