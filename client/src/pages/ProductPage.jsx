@@ -15,7 +15,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Rating from "../components/Rating";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
-import { useGetProductDetailsQuery } from "../slices/productApiSlice";
+import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
 import { addToCart } from "../slices/cartSlice";
 
 const ProductPage = () => {
@@ -85,7 +85,7 @@ const ProductPage = () => {
           </ListGroup>
         </Col>
 
-        <Col md={3}>
+        <Col md={3} className="mt-4 mt-md-0">
           <Card>
             <ListGroup variant="flush">
               <ListGroupItem>

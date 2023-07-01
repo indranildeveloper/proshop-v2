@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Product from "../components/Product";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
-import { useGetProductsQuery } from "../slices/productApiSlice";
+import { useGetProductsQuery } from "../slices/productsApiSlice";
 
 const HomePage = () => {
   const { data: products, isLoading, isError, error } = useGetProductsQuery();
