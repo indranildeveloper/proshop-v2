@@ -43,8 +43,9 @@ const PaymentPage = () => {
               label="PayPal or Credit Card"
               id="PayPal"
               name="paymentMethod"
-              value="PayPal"
+              value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
+              checked
             />
           </Col>
         </Form.Group>
