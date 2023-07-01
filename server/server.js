@@ -31,6 +31,16 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
+/**
+ * ===========Paypal Payment Integration=================
+ */
+
+app.get("/api/config/payment", (req, res) =>
+  res.send({
+    clientId: process.env.PAYPAL_CLIENT_ID,
+  })
+);
+
 app.use(notFound);
 app.use(errorHandler);
 

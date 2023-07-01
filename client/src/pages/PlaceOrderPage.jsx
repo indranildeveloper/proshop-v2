@@ -14,7 +14,7 @@ import Card from "react-bootstrap/Card";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import Loading from "../components/Loading";
-import { useCreateOrderMutation } from "../slices/orderApiSlice";
+import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
 
 const PlaceOrderPage = () => {
