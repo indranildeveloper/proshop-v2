@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.route("/").get(protect, admin, getOrders).post(protect, addOrderItems);
 router.route("/my-orders").get(protect, getMyOrders);
-router.route("/:orderId").get(protect, admin, getOrderById);
+router.route("/:orderId").get(protect, getOrderById);
 router.route("/:orderId/pay").put(protect, updateOrderToPaid);
 router.route("/:orderId/deliver").put(protect, admin, updateOrderToDelivered);
 
