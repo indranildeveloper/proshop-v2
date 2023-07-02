@@ -144,9 +144,11 @@ const PlaceOrderPage = () => {
                 </Row>
               </ListGroupItem>
 
-              <ListGroupItem>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroupItem>
+              {error && (
+                <ListGroupItem>
+                  <Message variant="danger">{error}</Message>
+                </ListGroupItem>
+              )}
 
               <ListGroupItem>
                 <Button
