@@ -2,13 +2,17 @@ import { useState, useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { FaTimes } from "react-icons/fa";
 import Message from "../components/Message";
 import Loading from "../components/Loading";
+import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
 import { useProfileMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 
@@ -23,6 +27,11 @@ const ProfilePage = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [updateProfile, { isLoading: updateProfileLoading }] =
     useProfileMutation();
+  const {
+    data: orders,
+    isLoading: orderLoading,
+    error: orderError,
+  } = useGetMyOrdersQuery();
 
   useEffect(() => {
     if (userInfo) {
@@ -51,6 +60,18 @@ const ProfilePage = () => {
       }
     }
   };
+
+  if (orderLoading) {
+    return <Loading />;
+  }
+
+  if (orderError) {
+    return (
+      <Message variant="danger">
+        {orderError?.data?.message || orderError?.error}
+      </Message>
+    );
+  }
 
   return (
     <Row>
@@ -104,7 +125,53 @@ const ProfilePage = () => {
           {updateProfileLoading && <Loading />}
         </Form>
       </Col>
-      <Col md={9}>column</Col>
+      <Col md={9}>
+        <h2>My orders</h2>
+        <Table striped hover responsive>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Paid</th>
+              <th>Delivered</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={uuidv4()} className="text-center">
+                <td className="align-middle">{order._id}</td>
+                <td className="align-middle">
+                  {dayjs(order.createdAt).format("DD/MM/YY HH:mm")}
+                </td>
+                <td className="align-middle">${order.totalPrice}</td>
+                <td className="align-middle">
+                  {order.isPaid ? (
+                    dayjs(order.paidAt).format("DD/MM/YY HH:mm")
+                  ) : (
+                    <FaTimes className="text-danger" />
+                  )}
+                </td>
+                <td className="align-middle">
+                  {order.isDelivered ? (
+                    dayjs(order.deliveredAt).format("DD/MM/YY HH:mm")
+                  ) : (
+                    <FaTimes className="text-danger" />
+                  )}
+                </td>
+                <td className="align-middle">
+                  <LinkContainer to={`/order/${order._id}`}>
+                    <Button type="button" variant="primary">
+                      Details
+                    </Button>
+                  </LinkContainer>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Col>
     </Row>
   );
 };
