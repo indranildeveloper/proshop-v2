@@ -5,6 +5,7 @@ import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
 import Nav from "react-bootstrap/Nav";
 import Stack from "react-bootstrap/Stack";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
@@ -58,12 +59,19 @@ const Header = () => {
               </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={handleLogout}>
-                    Logout
-                  </NavDropdown.Item>
+                  <Stack className="px-2">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item className="rounded mb-2">
+                        Profile
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item
+                      className="rounded"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavDropdown.Item>
+                  </Stack>
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
@@ -71,6 +79,27 @@ const Header = () => {
                     <FaUser /> Log In
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="admin-menu">
+                  <Stack className="px-2">
+                    <LinkContainer to="/admin/products-list">
+                      <NavDropdown.Item className="rounded mb-2">
+                        Products
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/users-list">
+                      <NavDropdown.Item className="rounded mb-2">
+                        User
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/admin/orders-list">
+                      <NavDropdown.Item className="rounded">
+                        Orders
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  </Stack>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>
