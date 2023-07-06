@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
@@ -11,8 +10,6 @@ import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
 
 const OrdersListPage = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
-
-  console.log(orders);
 
   if (isLoading) {
     return <Loading />;
