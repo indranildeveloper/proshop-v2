@@ -1,5 +1,6 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -8,16 +9,32 @@ import Stack from "react-bootstrap/Stack";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loading from "../../components/Loading";
-import { useGetProductsQuery } from "../../slices/productsApiSlice";
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from "../../slices/productsApiSlice";
 
 const ProductsListPage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const [createProduct, { isLoading: createProductLoading }] =
+    useCreateProductMutation();
 
   const handleDeleteProduct = (productId) => {
     console.log("delete", productId);
   };
 
-  if (isLoading) {
+  const handleCreateProduct = async () => {
+    if (window.confirm("Are you sure you want to create a new product?")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error?.error);
+      }
+    }
+  };
+
+  if (isLoading || createProductLoading) {
     return <Loading />;
   }
 
@@ -34,7 +51,11 @@ const ProductsListPage = () => {
           <h1>Products</h1>
         </Col>
         <Col className="text-end">
-          <Button variant="primary" className="m-2">
+          <Button
+            variant="primary"
+            className="m-2"
+            onClick={handleCreateProduct}
+          >
             <FaEdit /> Create Product
           </Button>
         </Col>
