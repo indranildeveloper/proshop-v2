@@ -136,34 +136,78 @@ const updateUserProfile = asyncHandler(async (req, res) => {
  * @access  Private/Admin
  */
 const getUsers = asyncHandler(async (req, res) => {
-  res.send("get users");
+  const users = await User.find({});
+
+  if (!users) {
+    res.status(404);
+    throw new Error("Something went wrong!");
+  }
+
+  res.status(200).json(users);
 });
 
 /**
  * @desc    Get user by id
- * @route   GET /api/users/:id
+ * @route   GET /api/users/:userId
  * @access  Private/Admin
  */
 const getUserById = asyncHandler(async (req, res) => {
-  res.send("get user by id");
+  const user = await User.findById(req.params.userId).select("-password");
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found!");
+  }
+
+  res.status(200).json(user);
 });
 
 /**
  * @desc    Update user
- * @route   PUT /api/users/:id
+ * @route   PUT /api/users/:userId
  * @access  Private/Admin
  */
 const updateUser = asyncHandler(async (req, res) => {
-  res.send("update user");
+  const user = await User.findById(req.params.userId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found!");
+  } else {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  }
 });
 
 /**
  * @desc    Delete users
- * @route   DELETE /api/users/:id
+ * @route   DELETE /api/users/:userId
  * @access  Private/Admin
  */
 const deleteUser = asyncHandler(async (req, res) => {
-  res.send("delete user");
+  const user = await User.findById(req.params.userId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found!");
+  }
+  if (user.isAdmin) {
+    res.status(400);
+    throw new Error("Can not delete Admin User!");
+  }
+
+  await user.deleteOne({ _id: user._id });
+  res.status(200).json({ message: "User successfully deleted!" });
 });
 
 export {
