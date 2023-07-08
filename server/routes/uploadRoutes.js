@@ -25,7 +25,7 @@ function checkFileType(file, cb) {
     return cb(null, true);
     // eslint-disable-next-line no-else-return
   } else {
-    cb(new Error("Images Only!"), false);
+    return cb("Images Only!");
   }
 }
 

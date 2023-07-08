@@ -12,6 +12,7 @@ import Loading from "../../components/Loading";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
 } from "../../slices/productsApiSlice";
 
 const ProductsListPage = () => {
@@ -19,8 +20,19 @@ const ProductsListPage = () => {
   const [createProduct, { isLoading: createProductLoading }] =
     useCreateProductMutation();
 
-  const handleDeleteProduct = (productId) => {
-    console.log("delete", productId);
+  const [deleteProduct, { isLoading: deleteProductLoading }] =
+    useDeleteProductMutation();
+
+  const handleDeleteProduct = async (productId) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        await deleteProduct(productId);
+        refetch();
+        toast.success("Product Deleted!");
+      } catch (error) {
+        toast.error(error?.data?.message || error?.error);
+      }
+    }
   };
 
   const handleCreateProduct = async () => {
@@ -34,7 +46,7 @@ const ProductsListPage = () => {
     }
   };
 
-  if (isLoading || createProductLoading) {
+  if (isLoading || createProductLoading || deleteProductLoading) {
     return <Loading />;
   }
 
