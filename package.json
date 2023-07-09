@@ -19,7 +19,8 @@
     "client:install": "yarn --cwd client install",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "data:import": "node server/seeder",
-    "data:destroy": "node server/seeder -d"
+    "data:destroy": "node server/seeder -d",
+    "build": "yarn && yarn --cwd client install && yarn --cwd client build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
