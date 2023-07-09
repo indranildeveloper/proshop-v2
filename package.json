@@ -9,7 +9,7 @@
   "engines": {
     "node": "20.3.1",
     "npm": "9.7.1",
-    "yarn": "1.22.19"
+    "yarn": "1.22.x"
   },
   "scripts": {
     "lint:check": "eslint --ext .js,.jsx ./ --no-error-on-unmatched-pattern",
