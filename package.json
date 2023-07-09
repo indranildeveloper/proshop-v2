@@ -6,6 +6,11 @@
   "author": "Indranil Halder <indranilhalder.dev@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "20.3.1",
+    "npm": "9.7.1",
+    "yarn": "1.22.19"
+  },
   "scripts": {
     "lint:check": "eslint --ext .js,.jsx ./ --no-error-on-unmatched-pattern",
     "lint:fix": "eslint --ext .js,.jsx ./ --no-error-on-unmatched-pattern --fix",
