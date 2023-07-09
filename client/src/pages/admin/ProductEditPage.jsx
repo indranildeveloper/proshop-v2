@@ -31,12 +31,11 @@ const ProductEditPage = () => {
     data: product,
     isLoading: productLoading,
     error,
-    refetch,
   } = useGetProductDetailsQuery(productId);
 
   const [updateProduct, { isLoading: productUpdateLoading }] =
     useUpdateProductMutation();
-  const [uploadProductImage, { isLoading: uplodadLoading }] =
+  const [uploadProductImage, { isLoading: uploadLoading }] =
     useUploadProductImageMutation();
 
   useEffect(() => {
@@ -128,7 +127,7 @@ const ProductEditPage = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </Form.Group>
-
+          {uploadLoading && <Loading />}
           <Form.Group controlId="image" className="my-2">
             <Form.Label>Image</Form.Label>
             <Form.Control

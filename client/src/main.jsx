@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { HelmetProvider } from "react-helmet-async";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { RouterProvider } from "react-router-dom";
 import Router from "./Router/Router";
@@ -10,10 +11,12 @@ import "bootswatch/dist/zephyr/bootstrap.min.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PayPalScriptProvider deferLoading>
-        <RouterProvider router={Router} />
-      </PayPalScriptProvider>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading>
+          <RouterProvider router={Router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );

@@ -18,6 +18,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Rating from "../components/Rating";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import {
   useGetProductDetailsQuery,
   useCreateProductReviewMutation,
@@ -88,6 +89,7 @@ const ProductPage = () => {
 
   return (
     <>
+      <Meta title={product.name} />
       <LinkContainer to="/">
         <Button variant="secondary" className="mb-4">
           <Stack direction="horizontal" gap={2}>
