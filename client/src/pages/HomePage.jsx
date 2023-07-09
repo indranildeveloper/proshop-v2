@@ -6,6 +6,7 @@ import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import { FaArrowLeft } from "react-icons/fa";
 import Product from "../components/Product";
+import ProductCarousel from "../components/ProductCarousel";
 import Loading from "../components/Loading";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
@@ -44,7 +45,10 @@ const HomePage = () => {
           </h1>
         </>
       ) : (
-        <h1>Latest Products</h1>
+        <>
+          <h1>Latest Products</h1>
+          <ProductCarousel />
+        </>
       )}
 
       <Row>

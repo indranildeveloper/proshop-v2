@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Product from "../models/productModel.js";
 
 /**
- * @desc    Fetch all products
+ * @desc    Get all products
  * @route   GET /api/products
  * @access  Public
  */
@@ -18,11 +18,12 @@ const getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
-  res.json({ products, page, pages: Math.ceil(count / pageSize) });
+
+  res.status(200).json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 /**
- * @desc    Fetch a products
+ * @desc    Get product by productId
  * @route   GET /api/products/:productId
  * @access  Public
  */
@@ -34,7 +35,7 @@ const getProductById = asyncHandler(async (req, res) => {
     throw new Error("Resource Not Found!");
   }
 
-  return res.json(product);
+  return res.status(200).json(product);
 });
 
 /**
@@ -148,6 +149,22 @@ const createProductReview = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc    Get top rated products
+ * @route   GET /api/products/top
+ * @access  Public
+ */
+const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+
+  if (!products) {
+    res.status(404);
+    throw new Error("Resource Not Found!");
+  }
+
+  return res.status(200).json(products);
+});
+
 export {
   getProducts,
   getProductById,
@@ -155,4 +172,5 @@ export {
   updateProduct,
   deleteProduct,
   createProductReview,
+  getTopProducts,
 };
