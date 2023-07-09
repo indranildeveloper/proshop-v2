@@ -1,5 +1,6 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { v4 as uuidv4 } from "uuid";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
@@ -9,6 +10,7 @@ import Stack from "react-bootstrap/Stack";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loading from "../../components/Loading";
+import Paginate from "../../components/Paginate";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
@@ -16,7 +18,10 @@ import {
 } from "../../slices/productsApiSlice";
 
 const ProductsListPage = () => {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
   const [createProduct, { isLoading: createProductLoading }] =
     useCreateProductMutation();
 
@@ -85,7 +90,7 @@ const ProductsListPage = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {data.products.map((product) => (
             <tr key={uuidv4()}>
               <td className="align-middle">{product._id}</td>
               <td className="align-middle">{product.name}</td>
@@ -112,6 +117,8 @@ const ProductsListPage = () => {
           ))}
         </tbody>
       </Table>
+
+      <Paginate pages={data.pages} page={data.page} isAdmin />
     </>
   );
 };
