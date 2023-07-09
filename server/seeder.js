@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import mongoose from "mongoose";
 import { config } from "dotenv";
+// eslint-disable-next-line no-unused-vars
 import colors from "colors";
 
 import users from "./data/users.js";
@@ -29,9 +31,11 @@ const importData = async () => {
 
     await Product.insertMany(sampleProducts);
 
+    // eslint-disable-next-line no-console
     console.log("Data Imported!".green.inverse);
     process.exit();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(`${error}`.red.inverse);
     process.exit(1);
   }
@@ -42,10 +46,11 @@ const destroyData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
-
+    // eslint-disable-next-line no-console
     console.log("Data Destroyed!".red.inverse);
     process.exit();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(`${error}`.red.inverse);
     process.exit(1);
   }

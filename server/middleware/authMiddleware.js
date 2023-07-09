@@ -17,6 +17,7 @@ const protect = asyncHandler(async (req, res, next) => {
       req.user = await User.findById(decoded.userId).select("-password");
       next();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
       res.status(401);
       throw new Error("Not authorized!, token failed!");

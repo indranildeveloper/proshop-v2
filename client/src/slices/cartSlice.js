@@ -46,6 +46,7 @@ const cartSlice = createSlice({
       return updateCart(state);
     },
 
+    // eslint-disable-next-line no-unused-vars
     clearCartItems: (state, action) => {
       state.cartItems = [];
       return updateCart(state);

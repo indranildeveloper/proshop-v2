@@ -28,6 +28,7 @@
     "no-shadow": "off",
     "no-underscore-dangle": "off",
     "consistent-return": "off",
+    "no-alert": "off",
     "react-refresh/only-export-components": "warn",
     "react/prop-types": "error",
     "react/require-default-props": "off",

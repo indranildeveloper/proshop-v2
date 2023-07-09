@@ -76,6 +76,7 @@ const OrderPage = () => {
   // }
 
   function handleApprove(data, actions) {
+    // eslint-disable-next-line func-names
     return actions.order.capture().then(async function (details) {
       try {
         await payOrder({ orderId, details });
