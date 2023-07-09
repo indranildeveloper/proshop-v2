@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Stack from "react-bootstrap/Stack";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
@@ -59,6 +60,11 @@ const Rating = ({ value, text }) => {
       <span className="mt-2">{text && text}</span>
     </Stack>
   );
+};
+
+Rating.propTypes = {
+  value: PropTypes.number,
+  text: PropTypes.string,
 };
 
 export default Rating;

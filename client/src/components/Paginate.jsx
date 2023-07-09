@@ -1,6 +1,7 @@
-import Pagination from "react-bootstrap/Pagination";
+import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { LinkContainer } from "react-router-bootstrap";
+import Pagination from "react-bootstrap/Pagination";
 
 const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
   return (
@@ -23,6 +24,13 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = "" }) => {
       </Pagination>
     )
   );
+};
+
+Paginate.propTypes = {
+  pages: PropTypes.number,
+  page: PropTypes.number,
+  isAdmin: PropTypes.bool,
+  keyword: PropTypes.string,
 };
 
 export default Paginate;

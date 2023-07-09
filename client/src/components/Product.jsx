@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Rating from "./Rating";
@@ -26,6 +27,17 @@ const Product = ({ product }) => {
       </Card.Body>
     </Card>
   );
+};
+
+Product.propTypes = {
+  product: PropTypes.shape({
+    _id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    rating: PropTypes.number,
+    numReviews: PropTypes.number,
+    price: PropTypes.number,
+  }),
 };
 
 export default Product;

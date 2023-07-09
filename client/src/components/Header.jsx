@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { toast } from "react-toastify";
 import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
@@ -27,7 +28,7 @@ const Header = () => {
       dispatch(destroyCredentials());
       navigate("/login");
     } catch (error) {
-      console.error(error);
+      toast.error(error?.data?.message || error.error);
     }
   };
 
