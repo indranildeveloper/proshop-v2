@@ -5,10 +5,10 @@ import Badge from "react-bootstrap/Badge";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import DropdownMenu from "react-bootstrap/DropdownMenu";
 import Nav from "react-bootstrap/Nav";
 import Stack from "react-bootstrap/Stack";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import SearchBox from "./SearchBox";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { destroyCredentials } from "../slices/authSlice";
 
@@ -41,6 +41,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="navbar" />
           <Navbar.Collapse id="navbar">
             <Nav className="ms-auto">
+              <SearchBox />
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <Stack
